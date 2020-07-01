@@ -27,3 +27,16 @@ Finding 1: smaller m gives smaller t_best (i.e. solving a smaller maze is faster
 Finding 2: increasing gl could negatively impact smaller mazes, but benefit larger mazes. For smaller mazes, a shorter gl could have solved the maze already, so walking a long path wastes time (e.g. 7x7 solves faster with gl 20 than with gl 100). Larger mazes however require longer paths (e.g. it is very difficult to solve a 21x21 maze with just a gl of 20).
 
 Note: results based on running with futility count of 50k
+
+## Optimizations 
+
+Opt1: if multi map is getting too big, truncate so that it’s no bigger than 4* total_number_of_threads — to find a balance between number of new candidate genomes and attempts to improve existing genomes 
+
+Opt2: push several elements from multi map into q even after setfinish() sequence is run — to free up any mutator threads stuck listening() on a potentially empty sequence 
+
+Opt3: if the program hasn’t found a solution after a user-specified number of mutations, terminate the program with the “best” genome (closest to finishing & with fewest wall-hits) — to ensure completion
+
+*A note on another attempted but abandoned optimization 
+A direction-guessing mutation has been considered (i.e. mutate genome based on whether the previous mutation in that direction—up/down/left/right/static—yielded a better fit). 
+However, this idea was abandoned due to the danger of “overshooting” – e.g. even if walking a certain direction gave an improved fit once, does not mean that it would be good again next time. Imagine an “ideal” downward movement of 3. We started with moving down 4. This gave a better fit. However, if we continue to decrease based on “past experience”, we would actually be moving away from our “ideal” number of down 3 steps. 
+We could certainly write a prediction algorithm, but a more complex algorithm could increase computation time – especially if we are doing many mutations, computation time could rise significantly, nullifying our original intent of faster computation. 
