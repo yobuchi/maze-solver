@@ -1,7 +1,7 @@
 
 # Purpose
-This project is an exploration of using a multi-threaded genetic algorithm to solve mazes of different sizes
-I'm interested in finding the most efficient way to solve a maze & exploring the relationships between genome length and maze size
+This project is an exploration of using a multi-threaded genetic algorithm to solve mazes of different sizes.
+I'm interested in finding the most efficient way to solve a maze, exploring the relationships between genome length and maze size, and discovering performance optimizations for mutating thread pools.
 
 Genome = solution path containing (up, down, left, right) directions
 
