@@ -1,11 +1,11 @@
 
-## Purpose
+# Purpose
 This project is an exploration of using a multi-threaded genetic algorithm to solve mazes of different sizes
 I'm interested in finding the most efficient way to solve a maze & exploring the relationships between genome length and maze size
 
 Genome = solution path containing (up, down, left, right) directions
 
-## How to compile and test/run
+# How to compile and test/run
 
 A Makefile is provided. Compile with: make
 
@@ -19,7 +19,7 @@ e.g.:./output 4 50000 11 11 100
 would spawn 4 threads(in total), have a futility counter of 50000, have a 11x11 maze, and genomes of length 100
 
 
-## Performance report
+# Performance report
 Let m = maze size, gl = genome length, t_best = time to best genome
 
 Finding 1: smaller m gives smaller t_best (i.e. solving a smaller maze is faster), because smaller mazes are easier to solve. (e.g. 7x7 maze has an average t_best of 39ms, whereas 11x11 maze takes 1255ms).
@@ -28,7 +28,7 @@ Finding 2: increasing gl could negatively impact smaller mazes, but benefit larg
 
 Note: results based on running with futility count of 50k
 
-## Optimizations 
+# Optimizations 
 
 Opt1: if multi map is getting too big, truncate so that it’s no bigger than 4* total_number_of_threads — to find a balance between number of new candidate genomes and attempts to improve existing genomes 
 
@@ -36,7 +36,7 @@ Opt2: push several elements from multi map into q even after setfinish() sequenc
 
 Opt3: if the program hasn’t found a solution after a user-specified number of mutations, terminate the program with the “best” genome (closest to finishing & with fewest wall-hits) — to ensure completion
 
-# A note on another attempted but abandoned optimization
+## A note on another attempted but abandoned optimization
 
 A direction-guessing mutation has been considered (i.e. mutate genome based on whether the previous mutation in that direction—up/down/left/right/static—yielded a better fit). 
 However, this idea was abandoned due to the danger of “overshooting” – e.g. even if walking a certain direction gave an improved fit once, does not mean that it would be good again next time. Imagine an “ideal” downward movement of 3. We started with moving down 4. This gave a better fit. However, if we continue to decrease based on “past experience”, we would actually be moving away from our “ideal” number of down 3 steps. 
