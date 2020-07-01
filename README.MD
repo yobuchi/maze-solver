@@ -36,7 +36,8 @@ Opt2: push several elements from multi map into q even after setfinish() sequenc
 
 Opt3: if the program hasn’t found a solution after a user-specified number of mutations, terminate the program with the “best” genome (closest to finishing & with fewest wall-hits) — to ensure completion
 
-*A note on another attempted but abandoned optimization* 
+# A note on another attempted but abandoned optimization
+
 A direction-guessing mutation has been considered (i.e. mutate genome based on whether the previous mutation in that direction—up/down/left/right/static—yielded a better fit). 
 However, this idea was abandoned due to the danger of “overshooting” – e.g. even if walking a certain direction gave an improved fit once, does not mean that it would be good again next time. Imagine an “ideal” downward movement of 3. We started with moving down 4. This gave a better fit. However, if we continue to decrease based on “past experience”, we would actually be moving away from our “ideal” number of down 3 steps. 
 We could certainly write a prediction algorithm, but a more complex algorithm could increase computation time – especially if we are doing many mutations, computation time could rise significantly, nullifying our original intent of faster computation. 
